@@ -20,7 +20,7 @@ jobs:
 
 
       - name: Start container and verify it is working
-        run:  set -x
+        run: # set -x
             docker-compose up -d
-            #docker run --network container:contacts \
-            #  appropriate/curl --retry 10 --retry-delay 1 --retry-connrefused http://localhost:8080/contacts/test
+            docker run --network container:contacts \
+              appropriate/curl --retry 10 --retry-delay 1 --retry-connrefused http://localhost:8080/contacts/test
