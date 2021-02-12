@@ -1,0 +1,9 @@
+version: '2'
+services:
+ debian_ping:
+  image: 'debian'
+  container_name: debian_ping
+  hostname: debian_ping
+  tty: true
+  command: "ping -c 4 8.8.8.8"
+  #ya domashku docker ping ne delal :D 
