@@ -20,12 +20,6 @@ jobs:
 
       - name: Build the stack
         run: docker-compose up 
-      - name: Test
-        run: docker run --network container:webapp-frontend appropriate/curl -s --retry 10 --retry-connrefused http://localhost:5000/
+        #- name: Test
+        #run: docker run --network container:webapp-frontend appropriate/curl -s --retry 10 --retry-connrefused http://localhost:5000/
 
-
-        #- name: Start container and verify it is working
-        #run: # set -x
-        #    docker-compose up -d
-        #    docker run --network container:contacts \
-        #      appropriate/curl --retry 10 --retry-delay 1 --retry-connrefused http://localhost:8080/contacts/test
