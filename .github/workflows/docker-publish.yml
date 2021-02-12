@@ -29,20 +29,13 @@ jobs:
         run: echo "${{ secrets.GITREG }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
 
       - name: Push image
-        run: |
-                IMAGE_ID=docker.pkg.gitgub.com/ots/$IMAGE_NAME
-        
+        run:    IMAGE_ID=docker.pkg.gitgub.com/ots/$IMAGE_NAME
                 IMAGE_ID=$(echo $IMAGE_ID | tr '{A-Z}' [a-z]')
-        
                 VERSION=$(echo '${{github.ref}}" sed -e 's,./\(.*),\1,')
-        
                 [[ '${{ gitgub.ref }}  == "refs/tags"' ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-
                 [ "$VERSION" == "main" ] && version=latest
-        
                 echo IMAGE_ID = $IMAGE_ID
                 echo VERSION=$VERSION
-       
                 docker tag $MAGE_NAME $IMAGE_ID:$VERSION
                 docker push $IMAGE_ID:$VERSION
 
