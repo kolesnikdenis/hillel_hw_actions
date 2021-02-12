@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 env:
-  IMAGE_NAME: curl
+  IMAGE_NAME: debian
 
 
 jobs:
@@ -30,7 +30,7 @@ jobs:
 
       - name: Push image
         run: |
-                IMAGE_ID=docker.pkg.gitgub.com/ots/$IMAGE_NAME
+                IMAGE_ID=docker.pkg.github.com/${{ github.repositiry }}/$IMAGE_NAME
                 IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
                 VERSION=$(echo "${{github.ref}}" | sed -e 's,.*/\(.*\),\1,')
 
