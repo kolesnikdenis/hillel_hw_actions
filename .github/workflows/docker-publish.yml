@@ -25,8 +25,8 @@ jobs:
       - name: start docker compose and ping google from container
         run: docker-compose up 
 
-      - name: Login into registry
-        run: echo "${{ secrets.GITREG }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+        #- name: Login into registry
+        #run: echo "${{ secrets.GITREG }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
 
         #    - name: Push image
         #run: |
