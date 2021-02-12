@@ -22,8 +22,8 @@ jobs:
       - name: Run a one-line script
         run: echo Hello, world!
 
-      - name: start docker compose and ping google from container
-        run: docker-compose up 
+        #      - name: start docker compose and ping google from container
+        #        run: docker-compose up 
 
       - name: Login into registry
         run: echo "${{ secrets.GITREG }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
@@ -36,9 +36,9 @@ jobs:
 
                 [[ "${{ github.ref }}"  == "refs/tags"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
                 
-                [ "$VERSION" == "main" ] && version=latest
+                [ "$VERSION" == "main" ] && VERSION=latest
                 
-                echo IMAGE_ID = $IMAGE_ID
+                echo IMAGE_ID=$IMAGE_ID
                 echo VERSION=$VERSION
 
                 docker tag $MAGE_NAME $IMAGE_ID:$VERSION
