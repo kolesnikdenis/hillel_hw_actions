@@ -8,6 +8,8 @@ on:
 
   workflow_dispatch:
 
+env IMAGE_NAME: ping_google
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -18,8 +20,29 @@ jobs:
       - name: Run a one-line script
         run: echo Hello, world!
 
-      - name: Build the stack
+      - name: start docker compose and ping google from container
         run: docker-compose up 
-        #- name: Test
-        #run: docker run --network container:webapp-frontend appropriate/curl -s --retry 10 --retry-connrefused http://localhost:5000/
+
+      - name: Login into registry
+        run: echo "${{ secrets.GITREG }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+
+      - name: Push image
+        run: |
+                IMAGE_ID=docker.pkg.gitgub.com/ots/$IMAGE_NAME
+
+                IMAGE_ID=$(echo $IMAGE_ID | tr '{A-Z}' [a-z]')
+
+                 VERSION=$(echo '${{github.ref}}" sed -e 's,./\(.*),\1,')
+
+                 [[ '${{ gitgub.ref }}  == "refs/tags"' ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+
+                 [ "$VERSION" == "main" ] && version=latest
+
+                 echo IMAGE_ID = $IMAGE_ID
+                 echo VERSION=$VERSION
+
+                docker tag $MAGE_NAME $IMAGE_ID:$VERSION
+                docker push $IMAGE_ID:$VERSION
+
+
 
