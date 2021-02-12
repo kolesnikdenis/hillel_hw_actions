@@ -6,9 +6,10 @@ on:
   pull_request:
     branches: [ push ]
 
+  env IMAGE_NAME: ping_google
+
   workflow_dispatch:
 
-  env IMAGE_NAME: ping_google
 
 jobs:
   build:
